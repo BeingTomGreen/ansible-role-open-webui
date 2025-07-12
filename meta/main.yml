@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Tom Green
+  description: A simple role for installing and managing Open WebUI in a Docker container.
+
+  role_name: open_webui
+  namespace: beingtomgreen
+  standalone: true
+
+  license: MIT
+
+  min_ansible_version: "2.18"
+
+  galaxy_tags:
+    - homelab
+    - ai
+    - openwebui
+    - ollama
+
+dependencies: []
+
+collections:
+  - community.docker

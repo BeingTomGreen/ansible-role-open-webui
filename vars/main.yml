@@ -1,0 +1,16 @@
+---
+
+open_webui_image_base: "ghcr.io/open-webui/open-webui"
+
+# Dynamic image selection based on GPU type
+open_webui_image_map:
+  none: "{{ open_webui_image_base }}"
+  nvidia: "{{ open_webui_image_base }}"
+  amd: "{{ open_webui_image_base }}"
+  jetson: "{{ open_webui_image_base }}"
+
+open_webui_tag_map:
+  none: "{{ open_webui_version }}"
+  nvidia: "{{ open_webui_gpu_support | bool | ternary('cuda', open_webui_version) }}"
+  amd: "{{ open_webui_version }}"
+  jetson: "{{ open_webui_version }}"

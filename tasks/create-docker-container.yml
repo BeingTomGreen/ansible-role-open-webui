@@ -1,0 +1,58 @@
+---
+
+- name: Ensure Open WebUI data volume is present
+  community.docker.docker_volume:
+    name: "{{ open_webui_data_volume.name | default('open_webui_data') }}"
+    driver: "{{ open_webui_data_volume.driver | default('local') }}"
+    driver_options: "{{ open_webui_data_volume.driver_opts | default(omit) }}"
+    labels: "{{ open_webui_data_volume.labels | default(omit) }}"
+    state: present
+  tags:
+    - open_webui
+    - docker
+    - volumes
+
+- name: Set default Docker image tag based on GPU type
+  when: open_webui_image_tag is not defined or open_webui_image_tag | length == 0
+  ansible.builtin.set_fact:
+    open_webui_image_tag: "{{ 'cuda' if open_webui_gpu_type == 'nvidia' else 'main' }}"
+  tags:
+    - open_webui
+    - docker
+    - images
+
+- name: Ensure Open WebUI Docker image is present
+  community.docker.docker_image:
+    name: "{{ open_webui_image_name }}"
+    tag: "{{ open_webui_image_tag }}"
+    source: pull
+    state: present
+  register: open_webui_image_pull
+  tags:
+    - open_webui
+    - docker
+    - images
+
+- name: Ensure Open WebUI Docker container is started
+  community.docker.docker_container:
+    name: "{{ open_webui_container_name }}"
+    image: "{{ open_webui_image_name }}:{{ open_webui_image_tag }}"
+    state: "{{ open_webui_state }}"
+    restart_policy: "{{ open_webui_container_policy }}"
+    env: "{{ open_webui_env }}"
+    ports:
+      - "{{ open_webui_host }}:{{ open_webui_port }}:8080"
+    volumes:
+      - "{{ open_webui_data_volume.name }}:/app/backend/data"
+    networks: "{{ open_webui_networks if open_webui_networks | length > 0 else omit }}"
+    device_requests: >-
+      {{ [{
+        'driver': 'nvidia',
+        'count': -1,
+        'capabilities': [['gpu']],
+      }] if open_webui_gpu_type == 'nvidia' else omit }}
+  register: open_webui_container
+  tags:
+    - open_webui
+    - docker
+    - containers

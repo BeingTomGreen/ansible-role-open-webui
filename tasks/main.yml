@@ -1,0 +1,4 @@
+---
+
+- name: Configure Docker
+  ansible.builtin.import_tasks: create-docker-container.yml
