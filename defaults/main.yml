@@ -30,8 +30,8 @@ open_webui_data_volume:
 open_webui_networks: []
 # Example:
 # open_webui_networks:
-  # - my_open_webui_network
-#   - my_other_open_webui_network
+#   - name: my_open_webui_network
+#   - name: my_other_open_webui_network
 
 # Open WebUI container interface/port mapping
 open_webui_host: "127.0.0.1"
