@@ -39,5 +39,5 @@ open_webui_port: "3000"
 
 # Open WebUI Environment variables
 open_webui_env:
-  # OLLAMA_BASE_URL: "http://127.0.0.1:11434"
-  # WEBUI_AUTH: "true"
+#   OLLAMA_BASE_URL: "http://127.0.0.1:11434"
+#   WEBUI_AUTH: "true"

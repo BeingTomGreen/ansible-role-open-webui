@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: Tom Green
   description: A simple role for installing and managing Open WebUI in a Docker container.
