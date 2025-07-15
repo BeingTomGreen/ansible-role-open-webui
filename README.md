@@ -10,7 +10,7 @@ Given that Galaxy seems to have abandoned roles, I suggest referencing this repo
 ---
 
 roles:
-  - name: open_webui
+  - name: beingtomgreen.open_webui
     src: https://github.com/BeingTomGreen/ansible-role-open-webui.git
 
 collections: []
