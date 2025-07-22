@@ -21,7 +21,7 @@ open_webui_container_policy: "unless-stopped"
 
 # Configure the Open WebUI container data volume
 open_webui_data_volume:
-  name: ollama_data
+  name: open_webui_data
   # driver: local
   # driver_opts: {}
   # labels: {}
